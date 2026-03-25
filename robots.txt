@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /symbiotic-app/
+Sitemap: https://symbiotic-app.github.io/sitemap.xml

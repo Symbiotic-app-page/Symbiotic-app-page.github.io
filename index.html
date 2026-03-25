@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Symbiotic App — Features, Use Cases and Safety Guide</title>
+  <meta name="description" content="Symbiotic App explained: learn how it works, core features, use cases, and safety considerations before you try it. Read the guide now.">
+  <link rel="canonical" href="https://symbiotic-app.github.io/">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta property="og:title" content="Symbiotic App — Features, Use Cases and Safety Guide">
+  <meta property="og:description" content="Symbiotic App explained: learn how it works, core features, use cases, and safety considerations before you try it. Read the guide now.">
+  <meta property="og:url" content="https://symbiotic-app.github.io/">
+  <meta property="og:type" content="article">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "name": "Symbiotic App — Features, Use Cases and Safety Guide", "description": "Symbiotic App explained: learn how it works, core features, use cases, and safety considerations before you try it. Read the guide now.", "url": "https://symbiotic-app.github.io/", "inLanguage": "en"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://"}, {"@type": "ListItem", "position": 2, "name": "Symbiotic App — Features, Use Cases and Safety Guide"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the Symbiotic App used for?", "acceptedAnswer": {"@type": "Answer", "text": "The Symbiotic App is used to access Symbiotic protocol functions such as connecting a wallet, reviewing vaults, managing deposits, tracking positions, and monitoring rewards or risk settings. It acts as the user interface for interacting with the protocol rather than a standalone custodial service."}}, {"@type": "Question", "name": "Is the Symbiotic App a wallet?", "acceptedAnswer": {"@type": "Answer", "text": "No. The Symbiotic app is not a custodial wallet. It connects to an external wallet so you can sign transactions, view vaults, and interact with protocol contracts through the dashboard."}}, {"@type": "Question", "name": "Can I use the Symbiotic App without understanding restaking?", "acceptedAnswer": {"@type": "Answer", "text": "You can open the interface, but using it well requires at least a working understanding of restaking, vault deposits, and slashing exposure. The safest starting point is the <a href=\"https://docs.symbiotic.fi/\">official protocol documentation</a>, then the live interface."}}, {"@type": "Question", "name": "What are the biggest risks when using the Symbiotic App?", "acceptedAnswer": {"@type": "Answer", "text": "The biggest risks are smart contract issues, wallet approval mistakes, slashing exposure, and misunderstanding how deposits or rewards work. The app can improve visibility, but it does not remove underlying protocol risk."}}, {"@type": "Question", "name": "How do I know whether a vault is suitable?", "acceptedAnswer": {"@type": "Answer", "text": "Check the asset involved, visible vault terms, operator and network context, and whether the documentation explains the structure clearly. If any of those pieces are unclear, the better decision is to wait."}}, {"@type": "Question", "name": "Does the Symbiotic App guarantee rewards?", "acceptedAnswer": {"@type": "Answer", "text": "No. Rewards in DeFi interfaces depend on protocol conditions and are not guaranteed like insured bank products. The SEC's <a href=\"https://www.sec.gov/investor-alerts-and-bulletins\">investor alerts and bulletins</a> are a useful reminder that crypto products can involve complex and changing risks."}}]}]}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ═══ BASE THEME — Component Framework ═══ */
+/* All components use these CSS variables. */
+/* Theme presets override specific values.  */
+/* Assembler injects --primary from AI.     */
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ── CTA fallback ── */
+  --cta-bg: linear-gradient(135deg, #6366f1, #4f46e5);
+  --cta-text: #fff;
+  --cta-glow: rgba(99,102,241,0.25);
+
+  /* ── Shadows (fallback — presets may override) ── */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+
+  /* ── Radius ── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* ── Typography (sizing only — fonts set by preset + assembler) ── */
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-size: 17px;
+  --line-height: 1.7;
+
+  /* ── Layout ── */
+  --content-width: 760px;
+  --page-width: 1100px;
+  --section-gap: 56px;
+  --container-padding: 24px;
+}
+
+/* ── Base Typography ── */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.25;
+  color: var(--text);
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 16px; }
+h3 { font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 600; margin-bottom: 10px; }
+h4 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+
+p { margin-bottom: 1em; color: var(--text-2); }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--primary); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--primary-hover); }
+
+strong { color: var(--text); font-weight: 600; }
+
+ul, ol { padding-left: 1.5em; margin-bottom: 1em; color: var(--text-2); }
+li { margin-bottom: 0.4em; }
+li::marker { color: var(--primary); }
+
+/* ── Layout Containers ── */
+.page-wrapper {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+/* Full-width wrapper for hero, CTA sections */
+.full-width {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+main {
+  padding: var(--section-gap) 0;
+}
+
+main > section,
+main > .component {
+  margin-bottom: var(--section-gap);
+}
+
+/* ── Card Base ── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  transition: all 0.25s ease;
+  position: relative;
+}
+.card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--primary-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2), 0 0 0 1px var(--primary-glow);
+}
+.card h4 { margin-bottom: 8px; }
+.card .highlight {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 12px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Card Grid ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* ── CTA Button ── */
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: var(--cta-bg);
+  color: var(--cta-text);
+  font-weight: 600;
+  font-size: 1.05rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 4px 20px var(--cta-glow);
+  letter-spacing: 0.02em;
+}
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px var(--cta-glow), 0 0 0 2px var(--primary-glow);
+  color: var(--cta-text);
+}
+
+/* ── Table Base ── */
+.table-wrap {
+  overflow-x: auto;
+  margin: 20px 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.table-wrap table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.table-wrap th {
+  background: var(--bg-subtle);
+  color: var(--text);
+  font-weight: 600;
+  text-align: left;
+  padding: 14px 18px;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+.table-wrap td {
+  padding: 14px 18px;
+  color: var(--text-2);
+  border-bottom: 1px solid var(--border);
+}
+.table-wrap tr:last-child td { border-bottom: none; }
+.table-wrap tr:hover td { background: var(--bg-card-hover); }
+.table-wrap tr:nth-child(even) td { background: var(--bg-subtle); }
+.table-wrap tr:first-child td { color: var(--primary); font-weight: 500; }
+
+/* ── FAQ Accordion ── */
+details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+details:hover { border-color: var(--border-hover); }
+details[open] { border-color: var(--primary-glow); }
+details summary {
+  padding: 18px 22px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--bg-card);
+  transition: background 0.2s, color 0.2s;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+details summary::-webkit-details-marker { display: none; }
+details summary::after {
+  content: '+';
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  transition: transform 0.3s, color 0.2s;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+details[open] summary::after { content: '\2212'; color: var(--primary); }
+details[open] summary { border-bottom: 1px solid var(--border); color: var(--primary); }
+details > div, details > p {
+  padding: 18px 22px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  :root {
+    --font-size: 16px;
+    --section-gap: 36px;
+    --container-padding: 16px;
+  }
+  .card-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  :root { --container-padding: 12px; }
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.35rem; }
+}
+
+/* ── Utility ── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ── Scroll Progress Bar ── */
+.progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 3px; background: var(--primary);
+  z-index: 9999; transition: width 0.1s;
+  box-shadow: 0 0 8px var(--primary-glow);
+}
+
+/* ── Back to Top ── */
+.back-top {
+  position: fixed; bottom: 24px; right: 24px;
+  width: 40px; height: 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s, background 0.2s;
+  z-index: 100;
+}
+.back-top.visible { opacity: 1; visibility: visible; }
+.back-top:hover { background: var(--bg-card-hover); color: var(--primary); }
+
+/* ── Scroll Animations ── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Keyframes ── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--primary-glow); }
+  50% { box-shadow: 0 0 0 8px transparent; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ── Decorative ── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0;
+  border: none;
+}
+
+/* ── Visual Separator (between major sections) ── */
+.visual-sep {
+  text-align: center;
+  padding: 8px 0;
+  color: var(--text-muted);
+  font-size: 0.6rem;
+  letter-spacing: 1em;
+  opacity: 0.4;
+}
+.visual-sep::before { content: '\2022 \2022 \2022'; }
+
+/* ── Icon Circle ── */
+.icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.icon-circle--sm { width: 32px; height: 32px; font-size: 0.85rem; }
+.icon-circle--lg { width: 48px; height: 48px; font-size: 1.15rem; }
+
+/* ── Stat Row ── */
+.stat-row {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+.stat-item {
+  text-align: center;
+}
+.stat-value {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.2;
+}
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ── Noise texture overlay ── */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══════════════════════════════════════════════════ */
+/* ═══ DESIGN STYLE VARIANTS                      ═══ */
+/* ═══════════════════════════════════════════════════ */
+
+/* ── Card Styles ── */
+.card--bordered {
+  border: 1px solid var(--border);
+  background: transparent;
+  box-shadow: none;
+}
+.card--shadow {
+  border: none;
+  box-shadow: var(--shadow-md);
+  background: var(--bg-card);
+}
+.card--glass {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: none;
+}
+.card--flat {
+  background: var(--bg-card);
+  border: none;
+  box-shadow: none;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Background Textures ── */
+.page--noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-blend-mode: overlay;
+}
+.page--gradient-mesh::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(var(--primary-rgb, 99,102,241), 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(var(--primary-rgb, 99,102,241), 0.04) 0%, transparent 40%),
+    radial-gradient(ellipse at 60% 80%, rgba(var(--primary-rgb, 99,102,241), 0.03) 0%, transparent 45%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ── Section Dividers ── */
+.page--divider-line .content-section + .content-section {
+  border-top: 1px solid var(--border);
+  padding-top: var(--section-gap, 3rem);
+}
+.page--divider-gradient .content-section + .content-section::before {
+  content: '';
+  display: block;
+  height: 1px;
+  margin-bottom: var(--section-gap, 3rem);
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+.page--divider-none .content-section + .content-section {
+  border-top: none;
+}
+
+/* ── Spacing Variants ── */
+.page--spacing-tight {
+  --section-gap: 2rem;
+  --content-gap: 1rem;
+}
+.page--spacing-tight .content-section { margin-bottom: 2rem; }
+.page--spacing-tight .content-section + .content-section { margin-top: 0; }
+
+.page--spacing-normal {
+  --section-gap: 3rem;
+  --content-gap: 1.5rem;
+}
+
+.page--spacing-airy {
+  --section-gap: 4.5rem;
+  --content-gap: 2rem;
+}
+.page--spacing-airy .content-section { margin-bottom: 4.5rem; }
+
+/* ── Animation Variants ── */
+.page--animate-none .fade-in {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+.page--animate-subtle .fade-in {
+  transition-duration: 0.4s;
+}
+.page--animate-dynamic .fade-in {
+  transition-duration: 0.6s;
+  transform: translateY(30px);
+}
+
+/* ── TOC Variants ── */
+.toc--sidebar {
+  position: sticky;
+  top: 80px;
+  float: right;
+  width: 220px;
+  margin-left: 2rem;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  font-size: 0.8rem;
+  scrollbar-width: thin;
+}
+@media (max-width: 1024px) {
+  .toc--sidebar {
+    float: none;
+    position: static;
+    width: 100%;
+    margin-left: 0;
+    max-height: none;
+  }
+}
+
+/* Theme: Light Indigo — based on symb_base-light.html */
+/* Lavender white, indigo accent, rose CTA, editorial */
+:root {
+  --bg: #fafafc;
+  --bg-2: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8f8fc;
+  --bg-subtle: #f3f4f8;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-dim: rgba(79,70,229,0.1);
+  --primary-glow: rgba(79,70,229,0.1);
+  --primary-light: rgba(79,70,229,0.04);
+  --cta-bg: #f43f5e;
+  --cta-text: #fff;
+  --cta-glow: rgba(244,63,94,0.25);
+  --text: #1e1b4b;
+  --text-2: #6366a0;
+  --text-muted: #a5a6c8;
+  --border: #e0e1eb;
+  --border-hover: #c7c8d8;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+  --font-heading: 'Outfit', -apple-system, sans-serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ── Footer ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 36px 0;
+  margin-top: var(--section-gap);
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+.footer-copy { margin: 0; }
+.footer-links {
+  display: flex;
+  gap: 18px;
+}
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-size: 0.8rem;
+}
+.footer-links a:hover { color: var(--text-2); }
+.footer-updated {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .footer-inner { flex-direction: column; text-align: center; }
+}
+/* ── Navigation ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+.nav-brand {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.nav-links a {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-2);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-links a:hover {
+  color: var(--text);
+  background: var(--bg-card);
+}
+.nav-links a.cta-pill {
+  background: var(--primary);
+  color: #fff;
+  margin-left: 8px;
+}
+.nav-links a.cta-pill:hover {
+  background: var(--primary-hover);
+}
+
+/* ── More dropdown ── */
+.nav-more {
+  position: relative;
+}
+.nav-more-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-more-btn:hover {
+  color: var(--text);
+  background: var(--bg-card);
+}
+.nav-more-arrow {
+  font-size: 0.65rem;
+  transition: transform 0.2s;
+}
+.nav-more.open .nav-more-arrow {
+  transform: rotate(180deg);
+}
+.nav-more-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  background: var(--bg-2, var(--bg));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 8px);
+  padding: 6px;
+  box-shadow: var(--shadow-md);
+  flex-direction: column;
+  z-index: 200;
+}
+.nav-more.open .nav-more-dropdown {
+  display: flex;
+}
+.nav-more-dropdown a {
+  padding: 8px 14px;
+  border-radius: var(--radius-sm, 4px);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-2);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-more-dropdown a:hover {
+  color: var(--text);
+  background: var(--bg-card);
+}
+
+/* ── Mobile nav ── */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text-2);
+  transition: transform 0.2s;
+}
+
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+  }
+  .nav-links.open { display: flex; }
+  .nav-more-btn { display: none; }
+  .nav-more-dropdown {
+    display: flex;
+    position: static;
+    background: none;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    min-width: auto;
+  }
+}
+
+/* ── Nav behavior modifiers ── */
+.nav--auto-hide {
+  transition: transform 0.3s ease;
+}
+.nav--auto-hide.nav--hidden {
+  transform: translateY(-100%);
+}
+.nav--transparent {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: transparent;
+  transition: background 0.3s, border-color 0.3s;
+}
+.nav--transparent.nav--scrolled {
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom-color: var(--border);
+}
+
+/* ── Price Ticker ── */
+.ticker-bar {
+  background: color-mix(in srgb, var(--bg) 95%, transparent);
+  border-top: 1px solid var(--border);
+  padding: 8px 0;
+  font-size: 0.75rem;
+  font-family: var(--font-body);
+}
+.ticker-inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ticker-inner::-webkit-scrollbar { display: none; }
+.ticker-items {
+  display: flex;
+  gap: 28px;
+  white-space: nowrap;
+  align-items: center;
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-2);
+}
+.ticker-item b {
+  color: var(--text);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+}
+.ticker-up { color: #10b981; font-weight: 500; }
+.ticker-down { color: #ef4444; font-weight: 500; }
+.ticker-loading {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── Content Sections ── */
+.content-section {
+  scroll-margin-top: 72px;
+}
+.content-section h2 {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+  position: relative;
+}
+.content-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 1px;
+}
+.content-section h3 {
+  margin-top: 32px;
+  padding-top: 8px;
+}
+
+/* ── Capsule (featured snippet bait) ── */
+.capsule {
+  background: var(--primary-light);
+  border-left: 3px solid var(--primary);
+  padding: 16px 20px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-bottom: 24px;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+/* ── Evidence block ── */
+.evidence {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 18px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: var(--text-2);
+}
+.evidence::before {
+  content: '\25C6';
+  color: var(--primary);
+  font-size: 0.7rem;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+/* ── Subsection ── */
+.subsection {
+  margin-top: 28px;
+}
+.subsection h3 {
+  margin-top: 0;
+}
+
+/* ── Cards variant ── */
+.section--cards .card-grid {
+  margin-top: 24px;
+}
+.section--cards .card h4 {
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.section--cards .card p {
+  font-size: 0.9rem;
+  margin: 0;
+  color: var(--text-2);
+}
+
+/* ── Steps variant ── */
+.steps {
+  counter-reset: step;
+  margin-top: 24px;
+  position: relative;
+  padding-left: 28px;
+}
+/* Connecting line */
+.steps::before {
+  content: '';
+  position: absolute;
+  left: 17px;
+  top: 18px;
+  bottom: 18px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--primary), var(--border));
+  border-radius: 1px;
+}
+.step {
+  counter-increment: step;
+  display: flex;
+  gap: 16px;
+  padding: 22px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.step:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-sm);
+}
+.step::before {
+  content: counter(step);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 38px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px var(--border);
+}
+.step-content h4 { margin-bottom: 8px; }
+.step-content p { font-size: 0.9rem; margin: 0; color: var(--text-2); }
+/* ── CTA Section (bottom) ── */
+.cta-section {
+  text-align: center;
+  padding: 64px 40px;
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--primary-light) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  margin-top: var(--section-gap);
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-inner {
+  position: relative;
+  z-index: 1;
+}
+.cta-inner h2 {
+  border-bottom: none;
+  margin-bottom: 14px;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+}
+.cta-inner h2::after { display: none; }
+.cta-inner p {
+  max-width: 520px;
+  margin: 0 auto 28px;
+  color: var(--text-2);
+  font-size: 1.05rem;
+}
+
+/* ── Inline CTA (between sections) ── */
+.cta-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 28px;
+  background: var(--primary-light);
+  border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+  border-radius: var(--radius-md);
+  margin: 36px 0;
+  transition: border-color 0.2s;
+}
+.cta-inline:hover {
+  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+}
+.cta-inline p {
+  margin: 0;
+  color: var(--text);
+  font-weight: 500;
+  font-size: 1rem;
+}
+.cta-inline .cta-button {
+  white-space: nowrap;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+}
+
+/* ── Sticky CTA Bar ── */
+.cta-sticky {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  padding: 14px 24px;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+.cta-sticky.visible {
+  transform: translateY(0);
+}
+.cta-sticky p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-2);
+}
+
+@media (max-width: 600px) {
+  .cta-section { padding: 40px 24px; }
+  .cta-inline {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+/* ── Pros & Cons ── */
+.pros-cons-section { scroll-margin-top: 72px; }
+.pros-cons-section h2::after { display: none; }
+
+.pros-cons-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+.pros-col, .cons-col {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.pros-col::before, .cons-col::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+.pros-col::before { background: linear-gradient(90deg, #10b981, #34d399); }
+.cons-col::before { background: linear-gradient(90deg, #f43f5e, #fb7185); }
+
+.pros-heading, .cons-heading {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pros-heading { color: #10b981; }
+.cons-heading { color: #f43f5e; }
+.pros-heading::before { content: '\2713'; }
+.cons-heading::before { content: '\2717'; }
+
+.pros-list, .cons-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.pros-list li, .cons-list li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+  color: var(--text-2);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  border-bottom: 1px solid var(--border);
+}
+.pros-list li:last-child, .cons-list li:last-child { border-bottom: none; }
+.pros-list li::before {
+  content: '+';
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.cons-list li::before {
+  content: '\2013';
+  position: absolute;
+  left: 2px;
+  color: #f43f5e;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .pros-cons-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Comparison Cards variant ── */
+.comparison-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+.comp-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+.comp-card:first-child {
+  border-color: var(--primary-glow);
+  box-shadow: 0 0 0 1px var(--primary-glow);
+}
+.comp-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.comp-card h4 {
+  margin-bottom: 10px;
+}
+.comp-card .comp-rating {
+  display: inline-block;
+  padding: 6px 16px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: 14px;
+}
+.comp-card .comp-details {
+  font-size: 0.85rem;
+  color: var(--text-2);
+  text-align: left;
+}
+.comp-card .comp-details dt {
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 10px;
+}
+/* ═══ HERO — Premium ═══ */
+.hero {
+  text-align: center;
+  padding: 100px var(--container-padding) 72px;
+  position: relative;
+  overflow: hidden;
+  max-width: var(--page-width);
+  margin: 0 auto;
+}
+
+/* Radial glow */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 500px;
+  background: radial-gradient(ellipse at center, var(--primary-glow) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* Bottom separator */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  z-index: 1;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Badge */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-2);
+  margin-bottom: 28px;
+  letter-spacing: 0.03em;
+  backdrop-filter: blur(8px);
+}
+.hero-badge .dot {
+  width: 7px;
+  height: 7px;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--primary-glow);
+  animation: pulse-glow 2.5s ease infinite;
+}
+
+.hero h1 {
+  margin-bottom: 20px;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-2);
+  max-width: 580px;
+  margin: 0 auto 36px;
+  line-height: 1.65;
+}
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ═══ GRADIENT ═══ */
+.hero--gradient {
+  padding: 120px var(--container-padding) 88px;
+  background: linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 40%, var(--bg) 100%);
+}
+.hero--gradient::before {
+  width: 1100px;
+  height: 600px;
+  opacity: 0.45;
+}
+.hero--gradient h1 {
+  background: linear-gradient(135deg, var(--text) 30%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══ SPLIT ═══ */
+.hero--split {
+  text-align: left;
+  padding: 80px var(--container-padding) 64px;
+}
+.hero--split .hero-inner {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+  max-width: var(--page-width);
+}
+.hero--split .hero-subtitle {
+  margin: 0 0 32px;
+  max-width: none;
+}
+.hero--split .hero-cta { justify-content: flex-start; }
+.hero-visual {
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--primary-light) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, var(--primary-glow) 100%);
+}
+
+/* ═══ MINIMAL ═══ */
+.hero--minimal {
+  padding: 56px var(--container-padding) 40px;
+}
+.hero--minimal::before { display: none; }
+.hero--minimal::after { opacity: 0.5; }
+.hero--minimal .hero-subtitle { margin-bottom: 0; }
+.hero--minimal .hero-inner { max-width: 640px; }
+
+/* ═══ Responsive ═══ */
+@media (max-width: 768px) {
+  .hero { padding: 72px var(--container-padding) 48px; }
+  .hero-subtitle { font-size: 1.05rem; }
+  .hero--gradient { padding: 88px var(--container-padding) 56px; }
+  .hero--split .hero-inner { grid-template-columns: 1fr; text-align: center; }
+  .hero--split .hero-cta { justify-content: center; }
+  .hero-visual { display: none; }
+}
+/* ── FAQ Section ── */
+.faq-section { scroll-margin-top: 72px; }
+.faq-section h2 {
+  margin-bottom: 24px;
+}
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── FAQ Grid variant ── */
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+.faq-grid .faq-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  transition: border-color 0.2s;
+}
+.faq-grid .faq-card:hover {
+  border-color: var(--border-hover);
+}
+.faq-grid .faq-card h4 {
+  color: var(--text);
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+.faq-grid .faq-card p {
+  color: var(--text-2);
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── Table of Contents ── */
+.toc {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px 28px;
+  margin-bottom: var(--section-gap);
+}
+.toc-title {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.toc-list {
+  padding-left: 0;
+  margin: 0;
+  counter-reset: toc;
+  list-style: none;
+}
+.toc-list li {
+  counter-increment: toc;
+  margin-bottom: 4px;
+}
+.toc-list li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  color: var(--text-2);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-radius: var(--radius-sm);
+  transition: color 0.2s, background 0.2s;
+}
+.toc-list li a:hover {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+.toc-list li a::before {
+  content: counter(toc, decimal-leading-zero);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  min-width: 24px;
+}
+
+@media (max-width: 600px) {
+  .faq-grid { grid-template-columns: 1fr; }
+}
+/* ── Key Takeaway / Blockquote ── */
+.key-takeaway {
+  padding: 24px 28px;
+  background: var(--bg-card);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: 28px 0;
+  position: relative;
+}
+.key-takeaway::before {
+  content: '\201C';
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-size: 3rem;
+  color: var(--primary-glow);
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+.key-takeaway p {
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.65;
+  padding-left: 8px;
+}
+
+/* ── Definition Box ── */
+.definition-box {
+  padding: 22px 26px;
+  background: var(--primary-light);
+  border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+  border-radius: var(--radius-md);
+  margin-bottom: 28px;
+}
+.definition-box p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.7;
+}
+.definition-box strong {
+  color: var(--primary);
+}
+/* ── Trust Section ── */
+.trust-section { scroll-margin-top: 72px; }
+.trust-points {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+.trust-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.6;
+  transition: border-color 0.2s;
+}
+.trust-point:hover {
+  border-left-color: var(--primary-hover);
+}
+.trust-point::before {
+  content: '\2713';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.75rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Disclaimer ── */
+.disclaimer-block {
+  padding: 18px 22px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-top: 28px;
+}
+.disclaimer-block p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.65;
+}
+.disclaimer-block strong {
+  color: var(--text-2);
+}
+
+:root {
+  --primary: #6C63FF;
+  --primary-hover: #5b54d8;
+  --primary-dim: #4b45b2;
+  --primary-glow: rgba(108,99,255,0.12);
+  --primary-light: rgba(108,99,255,0.08);
+  --cta-bg: linear-gradient(135deg, #6C63FF, #5b54d8);
+  --cta-glow: rgba(108,99,255,0.25);
+}
+:root { --font-heading: 'Outfit', -apple-system, sans-serif; --font-body: 'DM Sans', -apple-system, sans-serif; }
+
+  </style>
+</head>
+<body class="">
+  <div class="progress-bar" id="progress"></div>
+  
+  <nav class="nav">
+  <div class="nav-inner page-wrapper">
+    <a href="/" class="nav-brand">Symbiotic App</a>
+    <div class="nav-links" id="nav-links">
+      <a href="#what-the-symbiotic-app-actually-does">What the Symbiotic</a>
+      <a href="#how-the-symbiotic-app-workflow-looks-in-practice">How the Symbiotic</a>
+      <a href="#key-interface-elements-worth-checking-before-you-deposit">Key Interface Elements</a>
+      <div class="nav-more">
+        <button class="nav-more-btn" id="nav-more-btn">More <span class="nav-more-arrow">&#9662;</span></button>
+        <div class="nav-more-dropdown" id="nav-more-dropdown">
+          <a href="#where-the-main-risks-sit">Where the Main</a>
+        <a href="#who-the-symbiotic-app-fits-best">Who the Symbiotic</a>
+        <a href="#how-symbiotic-compares-with-a-typical-defi-interface">How Symbiotic Compares</a>
+        <a href="#questions-to-ask-before-using-the-symbiotic-app">Questions to Ask</a>
+        <a href="#faq">FAQ</a>
+        </div>
+      </div>
+      <a href="/symbiotic-app/" class="cta-pill">Get Started</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero noise-overlay">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="dot"></span> DeFi Market Snapshot</div>
+    <h1>Symbiotic App Explained: How It Works, Key Features, and What to Expect</h1>
+    <p class="hero-subtitle">The Symbiotic App is best understood as an interface for reviewing vaults, connecting a wallet, making deposits, and monitoring rewards and risk. This guide focuses on what users actually do inside the dashboard, with context from &lt;a href=&quot;https://ethereum.org/en/defi/&quot;&gt;Ethereum DeFi basics&lt;/a&gt; and protocol documentation.</p>
+    <div class="hero-cta"><a href="/symbiotic-app/" class="cta-button">Explore Symbiotic App &rarr;</a></div>
+    
+  </div>
+</section>
+<main class="page-wrapper">
+<nav class="toc" aria-label="Table of Contents">
+  <h2 class="toc-title">Contents</h2>
+  <ol class="toc-list">
+    <li><a href="#what-the-symbiotic-app-actually-does">What the Symbiotic App Actually Does</a></li>
+    <li><a href="#how-the-symbiotic-app-workflow-looks-in-practice">How the Symbiotic App Workflow Looks in Practice</a></li>
+    <li><a href="#key-interface-elements-worth-checking-before-you-deposit">Key Interface Elements Worth Checking Before You Deposit</a></li>
+    <li><a href="#where-the-main-risks-sit">Where the Main Risks Sit</a></li>
+    <li><a href="#who-the-symbiotic-app-fits-best">Who the Symbiotic App Fits Best</a></li>
+    <li><a href="#how-symbiotic-compares-with-a-typical-defi-interface">How Symbiotic Compares With a Typical DeFi Interface</a></li>
+    <li><a href="#questions-to-ask-before-using-the-symbiotic-app">Questions to Ask Before Using the Symbiotic App</a></li>
+    <li><a href="#comparison">Comparison</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ol>
+</nav>
+
+<section class="content-section" id="what-the-symbiotic-app-actually-does">
+  <h2>What the Symbiotic App Actually Does</h2>
+  <p class="capsule">The Symbiotic App is a user interface for interacting with the Symbiotic protocol. It helps users connect a wallet, review vaults, manage deposits, check operators and networks, and track rewards or risk settings without acting as a custodial service.</p>
+  <p class="evidence">The official Symbiotic docs describe protocol components including vaults, operators, and networks, which aligns with the app&#x27;s interface-driven role rather than a custodial product.</p>
+  <p><strong>Symbiotic App</strong> is not a bank account, exchange, or hosted wallet. It is the working interface for a <strong>restaking protocol</strong>, where users inspect vault deposits, operator selection, network security assumptions, and reward tracking from one crypto dashboard.</p><p>The practical value is visibility. Instead of reading raw onchain activity, you use the staking interface to evaluate a deposit flow, compare vaults, and monitor positions through a single dashboard. That makes the Symbiotic application easier to assess than interacting directly with contracts, but it does not remove <strong>smart contract risk</strong> or slashing exposure.</p><ul><li><strong>Wallet connection:</strong> connect a supported wallet to view balances and permissions.</li><li><strong>Vault review:</strong> inspect vault design, asset management logic, and deposit terms.</li><li><strong>Operator and network checks:</strong> see how operators and networks fit into the restaking model.</li><li><strong>Reward tracking:</strong> monitor positions, accrual logic, and dashboard updates.</li></ul><p></p>
+  <div class="subsection"><h3>Interface first, protocol underneath</h3><p>The app by Symbiotic sits on top of smart contracts. You use the interface to read protocol data, submit transactions, and follow outcomes, but the critical actions still settle onchain.</p></div>
+<div class="subsection"><h3>Why that distinction matters</h3><p>If a transaction fails, is delayed, or becomes expensive, the cause may come from wallet permissions, network conditions, or contract logic rather than the dashboard itself. That is a core difference between a DeFi interface and a centralized app.</p></div>
+
+</section>
+
+<section class="content-section" id="how-the-symbiotic-app-workflow-looks-in-practice">
+  <h2>How the Symbiotic App Workflow Looks in Practice</h2>
+  <p class="capsule">Most users follow a simple sequence inside the Symbiotic mobile app or web interface: connect a wallet, review vault options, understand operator and network exposure, confirm deposits, and then monitor rewards and risks over time.</p>
+  <div class="steps">
+    <div class="step"><div class="step-content"><h4>Connect a wallet</h4><p>Open the Symbiotic App, connect a compatible wallet, and verify that the selected network matches the intended transaction.</p></div></div>
+<div class="step"><div class="step-content"><h4>Evaluate a vault</h4><p>Review vault deposits, visible terms, asset support, and any operator or network relationships shown in the interface.</p></div></div>
+<div class="step"><div class="step-content"><h4>Approve and deposit</h4><p>If the asset requires approval, sign that transaction first, then confirm the deposit transaction separately.</p></div></div>
+<div class="step"><div class="step-content"><h4>Monitor rewards and risk</h4><p>Return to the dashboard to follow rewards, position changes, and any signals related to slashing or protocol updates.</p></div></div>
+
+  </div>
+</section>
+
+<section class="content-section section--cards" id="key-interface-elements-worth-checking-before-you-deposit">
+  <h2>Key Interface Elements Worth Checking Before You Deposit</h2>
+  <p class="capsule">The most useful parts of the Symbiotic App are the screens that reduce ambiguity. Before depositing, users should review vault details, operator visibility, network context, wallet prompts, and reward presentation to avoid avoidable mistakes.</p>
+  <div class="card-grid">
+    <div class="card"><h4>Vault overview</h4><p>Shows deposit asset, structure, and visible terms tied to a vault.</p><span class="highlight">Useful for pre-deposit checks</span></div>
+<div class="card"><h4>Operator visibility</h4><p>Helps users see who performs services within the restaking setup.</p><span class="highlight">Supports operator selection</span></div>
+<div class="card"><h4>Rewards dashboard</h4><p>Tracks position changes and reward-related updates after deposit.</p><span class="highlight">Improves reward tracking</span></div>
+
+  </div>
+</section>
+
+<div class="cta-inline">
+  <p>If you want a faster shortlist, compare wallet flow, vault visibility, and reward tracking before making any deposit decision.</p>
+  <a href="/symbiotic-app/" class="cta-button">Compare Symbiotic App Options &rarr;</a>
+</div>
+
+<section class="content-section" id="where-the-main-risks-sit">
+  <h2>Where the Main Risks Sit</h2>
+  <p class="capsule">The Symbiotic App can simplify access, but it does not eliminate protocol risk. Users still face smart contract risk, slashing exposure, wallet security issues, and the operational risk that comes with interacting with live onchain systems.</p>
+  <p class="evidence">Investor.gov notes that cryptocurrency-related products can involve significant volatility, technical complexity, and fraud or loss risk.</p>
+  <p>Convenience does not reduce base-layer risk. When you use the Symbiotic mobile app or web interface, your exposure still depends on wallet security, contract behavior, onchain transaction execution, and the design of vaults, operators, and networks.</p><ul><li><strong>Smart contract risk:</strong> a bug or design flaw can affect deposits or rewards.</li><li><strong>Slashing risk:</strong> depending on structure, operator behavior or network rules may reduce value.</li><li><strong>Wallet risk:</strong> malicious approvals, bad signatures, or poor device security can cause losses.</li><li><strong>Operational risk:</strong> dashboards may lag, while transactions settle according to chain conditions.</li></ul><p>Users should treat the app by Symbiotic as a control panel, not a safety guarantee. Reading protocol documentation and understanding approval scopes matters before any deposit.</p>
+  <div class="subsection"><h3>Smart contracts and audit awareness</h3><p>Security audits help, but they are not insurance. The stronger habit is to understand whether the interface points users to protocol documentation, contract addresses, and current disclosures before deposits.</p></div>
+<div class="subsection"><h3>Why slashing deserves special attention</h3><p>Slashing is easy to overlook because it may not appear in the same way as a fee. It is a conditional loss mechanism linked to protocol design, operator behavior, or network rules, so users need that context before seeking yield opportunities.</p></div>
+
+</section>
+
+<section class="content-section" id="who-the-symbiotic-app-fits-best">
+  <h2>Who the Symbiotic App Fits Best</h2>
+  <p class="capsule">The Symbiotic App is better suited to users who already understand wallet signing, token approvals, and DeFi position management. It is less suitable for people who want guarantees, insured balances, or a custodial support model.</p>
+  
+  <p>The Symbiotic application fits users who can evaluate a protocol interface critically. If you already understand wallet connection, onchain activity, and the difference between an interface and the underlying contracts, the dashboard can be useful.</p><ul><li><strong>Good fit:</strong> users comfortable with DeFi, staking interfaces, token approvals, and self-custody.</li><li><strong>Less ideal:</strong> users who expect fixed returns, account recovery, or human mediation on failed transactions.</li><li><strong>Best use case:</strong> monitoring vault deposits and reward tracking with enough context to assess risk.</li></ul><p></p>
+  <div class="subsection"><h3>Signs the app may suit your workflow</h3><p>You are likely a fit if you routinely verify wallet prompts, compare protocols using documentation, and understand that every meaningful action requires an onchain transaction.</p></div>
+<div class="subsection"><h3>Signs you should slow down first</h3><p>If you are not sure how approvals work, cannot distinguish a vault from a wallet, or expect customer support to reverse transactions, you should study the model before depositing.</p></div>
+
+</section>
+
+<section class="content-section" id="how-symbiotic-compares-with-a-typical-defi-interface">
+  <h2>How Symbiotic Compares With a Typical DeFi Interface</h2>
+  <p class="capsule">Compared with a generic DeFi dashboard, the Symbiotic App is more specialized around restaking-related flows such as vault review, operator context, and network-linked risk. That specialization can help informed users, but it raises the importance of documentation and risk checks.</p>
+  
+  <p>A standard DeFi interface often centers on swap, lend, or yield actions. The Symbiotic App is narrower and more technical. Its value comes from exposing restaking protocol components in a way users can inspect before acting.</p><p>That is the practical comparison point. If another app only shows a token balance and a deposit button, it may be simpler but less informative. If the Symbiotic platform app surfaces vault structure, operator selection cues, reward tracking, and protocol documentation, it gives advanced users more to work with.</p>
+  <div class="subsection"><h3>What specialized interfaces do better</h3><p>Specialized interfaces can present protocol-specific data that generic dashboards omit. For Symbiotic, that may include better context on vaults, operators, networks, and restaking-specific flows.</p></div>
+<div class="subsection"><h3>What generic interfaces do better</h3><p>Generic interfaces may feel simpler because they hide complexity. The tradeoff is that they can obscure assumptions that matter when real assets move through contracts with slashing or execution risk.</p></div>
+
+</section>
+
+<section class="content-section section--cards" id="questions-to-ask-before-using-the-symbiotic-app">
+  <h2>Questions to Ask Before Using the Symbiotic App</h2>
+  <p class="capsule">Before you use the Symbiotic App, verify what asset you are depositing, which wallet permissions are required, how rewards are shown, what slashing conditions may apply, and whether the documentation explains each step clearly.</p>
+  <div class="card-grid">
+    <div class="card"><h4>Approval scope</h4><p>Check what token approval the wallet is requesting before any deposit is made.</p><span class="highlight">Critical</span></div>
+<div class="card"><h4>Vault terms</h4><p>Confirm the destination vault and whether the interface explains the deposit logic clearly.</p><span class="highlight">High priority</span></div>
+<div class="card"><h4>Risk display</h4><p>Look for explicit references to slashing, contract dependency, and monitoring tools.</p><span class="highlight">Do not skip</span></div>
+
+  </div>
+</section>
+
+<section class="content-section comparison-section" id="comparison">
+  <h2>Symbiotic App vs Typical DeFi Dashboard</h2>
+  <p class="capsule">If you want protocol-specific context, Symbiotic App can be the better fit. If you only want the simplest possible interface, a generic dashboard may feel easier but reveal less.</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Criteria</th><th>Symbiotic App</th><th>Typical DeFi Interface</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Primary focus</td><td>Restaking-related vaults, operators, networks, and deposits</td><td>Broader actions like swaps, lending, or basic staking</td></tr>
+<tr><td>Decision support</td><td>More protocol-specific context if surfaced well in the dashboard</td><td>Often simpler, but may hide technical assumptions</td></tr>
+<tr><td>Risk visibility</td><td>Potentially stronger around slashing and vault structure</td><td>Often centered on rates or balances instead of structure</td></tr>
+<tr><td>Best for</td><td>Users comfortable with self-custody and protocol documentation</td><td>Users prioritizing speed and simpler flows</td></tr>
+
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="content-section faq-section" id="faq">
+  <h2>Symbiotic App FAQ</h2>
+  <div class="faq-list">
+    <details><summary>What is the Symbiotic App used for?</summary><div><p>The Symbiotic App is used to access Symbiotic protocol functions such as connecting a wallet, reviewing vaults, managing deposits, tracking positions, and monitoring rewards or risk settings. It acts as the user interface for interacting with the protocol rather than a standalone custodial service.</p></div></details>
+<details><summary>Is the Symbiotic App a wallet?</summary><div><p>No. The Symbiotic app is not a custodial wallet. It connects to an external wallet so you can sign transactions, view vaults, and interact with protocol contracts through the dashboard.</p></div></details>
+<details><summary>Can I use the Symbiotic App without understanding restaking?</summary><div><p>You can open the interface, but using it well requires at least a working understanding of restaking, vault deposits, and slashing exposure. The safest starting point is the &lt;a href=&quot;https://docs.symbiotic.fi/&quot;&gt;official protocol documentation&lt;/a&gt;, then the live interface.</p></div></details>
+<details><summary>What are the biggest risks when using the Symbiotic App?</summary><div><p>The biggest risks are smart contract issues, wallet approval mistakes, slashing exposure, and misunderstanding how deposits or rewards work. The app can improve visibility, but it does not remove underlying protocol risk.</p></div></details>
+<details><summary>How do I know whether a vault is suitable?</summary><div><p>Check the asset involved, visible vault terms, operator and network context, and whether the documentation explains the structure clearly. If any of those pieces are unclear, the better decision is to wait.</p></div></details>
+<details><summary>Does the Symbiotic App guarantee rewards?</summary><div><p>No. Rewards in DeFi interfaces depend on protocol conditions and are not guaranteed like insured bank products. The SEC&#x27;s &lt;a href=&quot;https://www.sec.gov/investor-alerts-and-bulletins&quot;&gt;investor alerts and bulletins&lt;/a&gt; are a useful reminder that crypto products can involve complex and changing risks.</p></div></details>
+
+  </div>
+</section>
+
+<div class="disclaimer-block">
+  <p><strong>Disclaimer:</strong> This content is for informational purposes only and does not constitute investment, legal, or tax advice. DeFi products, including interfaces used for restaking and vault deposits, can involve loss of principal, smart contract failure, slashing, and wallet security risks. Always review current documentation and assess your own risk tolerance before interacting with any protocol.</p>
+</div>
+
+<section class="cta-section" id="cta">
+  <div class="cta-inner">
+    <h2>Ready to evaluate the interface yourself?</h2>
+    <p>Use the dashboard with documentation in hand so you can compare vaults, review deposits, and assess risk with more context.</p>
+    <a href="/symbiotic-app/" class="cta-button">Get Started with Symbiotic App &rarr;</a>
+  </div>
+</section>
+
+</main>
+<footer class="footer">
+  <div class="page-wrapper">
+    <div class="footer-inner">
+      <p class="footer-copy">&copy; Symbiotic App</p>
+      
+      <p class="footer-updated">Last updated: 2026-03-25</p>
+    </div>
+  </div>
+</footer>
+
+  <button class="back-top" id="btt" aria-label="Back to top">&uarr;</button>
+  <script>
+    /* Progress bar */
+    window.addEventListener('scroll',function(){var s=document.documentElement,t=s.scrollHeight-s.clientHeight;document.getElementById('progress').style.width=t?((s.scrollTop/t)*100)+'%':'0%'});
+    /* Back to top */
+    var btt=document.getElementById('btt');window.addEventListener('scroll',function(){btt.classList.toggle('visible',window.scrollY>400)});btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+    
+/* Nav toggle */
+var nt=document.getElementById('nav-toggle'),nl=document.getElementById('nav-links');
+if(nt&&nl){nt.addEventListener('click',function(){nl.classList.toggle('open')})}
+/* Nav More dropdown */
+var nm=document.getElementById('nav-more-btn'),nd=nm&&nm.closest('.nav-more');
+if(nm&&nd){nm.addEventListener('click',function(e){e.stopPropagation();nd.classList.toggle('open')});document.addEventListener('click',function(){nd.classList.remove('open')})}
+/* Nav auto-hide on scroll */
+var nav=document.querySelector('.nav--auto-hide');
+if(nav){var ls=0;window.addEventListener('scroll',function(){var c=window.scrollY;if(c>ls&&c>80){nav.classList.add('nav--hidden')}else{nav.classList.remove('nav--hidden')}ls=c})}
+/* Nav transparent until scroll */
+var tn=document.querySelector('.nav--transparent');
+if(tn){window.addEventListener('scroll',function(){tn.classList.toggle('nav--scrolled',window.scrollY>60)})}
+/* Sticky CTA show on scroll */
+var sc=document.querySelector('.cta-sticky');
+if(sc){window.addEventListener('scroll',function(){sc.classList.toggle('visible',window.scrollY>800)})}
+/* Scroll fade-in animations */
+var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');io.unobserve(x.target)}})},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.content-section,.card,.step,.faq-section,.cta-section,.trust-section,.comparison-section,.pros-cons-section,.toc,.pricing-section,.testimonials-section,.stats-bar').forEach(function(el){el.classList.add('fade-in');io.observe(el)});
+/* CoinGecko price ticker */
+var ticker=document.getElementById('price-ticker');
+if(ticker){var coins=['bitcoin','ethereum','matic-network','solana','binancecoin'];function updTicker(){fetch('https://api.coingecko.com/api/v3/simple/price?ids='+coins.join(',')+'&vs_currencies=usd&include_24hr_change=true').then(function(r){return r.json()}).then(function(d){var h='';coins.forEach(function(c){if(d[c]){var p=d[c].usd,ch=d[c].usd_24h_change||0,cl=ch>=0?'ticker-up':'ticker-down',nm=c.split('-')[0].toUpperCase();h+='<span class="ticker-item"><b>'+nm+'</b> $'+p.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+' <span class="'+cl+'">'+(ch>=0?'+':'')+ch.toFixed(1)+'%</span></span>'}});document.getElementById('ticker-items').innerHTML=h}).catch(function(){})}updTicker();setInterval(updTicker,60000)}
+
+  </script>
+</body>
+</html>
